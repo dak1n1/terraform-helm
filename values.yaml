@@ -30,6 +30,11 @@ syncWorkspace:
   # to the release namespace
   k8WatchNamespace: null
 
+  # tfeAddress denotes the address in the form of https://tfe.local for
+  # a Terraform Enterprise instnace. If this is not set then it will default
+  # to Terraform Cloud (https://app.terraform.io)
+  tfeAddress: null
+
   # Log verbosity level. One of "trace", "debug", "info", "warn", or "error".
   # Defaults to "info".
   logLevel: null

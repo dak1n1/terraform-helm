@@ -39,6 +39,8 @@ spec:
               value: "terraform-k8s"
             - name: TF_CLI_CONFIG_FILE
               value: "/etc/terraform/.terraformrc"
+            - name: TF_URL
+              value: "{{ default "" .Values.syncWorkspace.tfeAddress }}"
           volumeMounts:
           - name: terraformrc
             mountPath: "/etc/terraform"

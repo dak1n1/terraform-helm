@@ -69,6 +69,30 @@ load _helpers
 }
 
 #--------------------------------------------------------------------
+# tfe address
+
+@test "syncWorkspace/Deployment: tfe address defaults to blank string" {
+  cd `chart_dir`
+  local actual=$(helm template \
+      -x templates/sync-workspace-deployment.yaml  \
+      --set 'syncWorkspace.enabled=true' \
+      . | tee /dev/stderr |
+      yq -r '.spec.template.spec.containers[0].env[3].value' | tee /dev/stderr)
+  [ "${actual}" = "" ]
+}
+
+@test "syncWorkspace/Deployment: tfe address defaults to tfe.local" {
+  cd `chart_dir`
+  local actual=$(helm template \
+      -x templates/sync-workspace-deployment.yaml  \
+      --set 'syncWorkspace.enabled=true' \
+      --set 'syncWorkspace.tfeAddress=https://tfe.local' \
+      . | tee /dev/stderr |
+      yq -r '.spec.template.spec.containers[0].env[3].value' | tee /dev/stderr)
+  [ "${actual}" = "https://tfe.local" ]
+}
+
+#--------------------------------------------------------------------
 # watch namespace
 
 @test "syncWorkspace/Deployment: watch namespace defaults to release namespace" {
